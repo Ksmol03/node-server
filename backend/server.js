@@ -11,6 +11,17 @@ app.get('/api/hello', (req, res) => {
     res.json({ message: formattedTime});
 });
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', '404.html'));
+  });
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
